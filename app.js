@@ -21,7 +21,6 @@ document.getElementById('search').addEventListener("keypress",function(event){
 })
 
 
-
 // show images 
 const showImages = (images) => {
   imagesArea.style.display = 'block';
@@ -53,13 +52,14 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
- 
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
+    element.classList.toggle('added');  
   } else {
-    alert('Hey, Already added !')
+    sliders.pop(img)
+    element.classList.toggle('added');
+
   }
 }
 var timer
@@ -82,7 +82,10 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  let duration = document.getElementById('duration').value || 1000;
+  if(duration < 0 || ""){
+    duration=1000;
+  }
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -138,12 +141,24 @@ sliderBtn.addEventListener('click', function () {
 
 
 
+
+//Extra section
 //Spinner-js
 const toggleSpinner = (show) =>{
   const spinner = document.getElementById('loadingSpinner');
     if(show)
       { spinner.classList.remove('d-none')
-      }else{
+      }
+      else
+      {
       spinner.classList.add('d-none')
       }
   }
+
+
+  //Create Slider Enter key
+document.getElementById('duration').addEventListener("keypress",function(event){
+  if(event.key=='Enter'){
+  document.getElementById('create-slider').click();
+  }
+})
