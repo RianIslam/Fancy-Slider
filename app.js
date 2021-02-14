@@ -142,7 +142,7 @@ sliderBtn.addEventListener('click', function () {
 
 
 
-//Extra section
+//Extra added for Bonus
 //Spinner-js
 const toggleSpinner = (show) =>{
   const spinner = document.getElementById('loadingSpinner');
